@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question or start a discussion
+    url: https://github.com/orgs/AppJars/discussions
+    about: Questions, ideas, "is this supported?", "are you planning X?", showing what you built. Open to everyone.
+  - name: I need help with my own application
+    url: https://customers.flowingcode.com
+    about: Integration, installation, configuration and usage help is delivered through the customer portal, which includes human support and an AI assistant (Startup and Enterprise subscriptions). This tracker is for defects in AppJars themselves.
+  - name: Report a security vulnerability
+    url: https://www.appjars.com/security/
+    about: Do not open a public issue for a suspected vulnerability. Follow the process described here.
+  - name: Documentation
+    url: https://docs.appjars.com
+    about: Guides, references and configuration for every AppJar.
+  - name: Catalog, pricing and licensing
+    url: https://www.appjars.com/catalog
+    about: Every AppJar, what is free, what a subscription includes, and how licensing works.

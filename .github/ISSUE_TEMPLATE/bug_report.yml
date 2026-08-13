@@ -1,0 +1,120 @@
+name: Bug report
+description: An AppJar does not behave as documented
+title: "[Bug] "
+labels: ["type/bug", "status/needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Two things before you start:
+
+        - This tracker is for defects **in AppJars**. If you need help with your own application — integration, installation, configuration — use the [support portal](https://customers.flowingcode.com) or ask in [Discussions](https://github.com/orgs/AppJars/discussions).
+        - If you suspect a **security vulnerability**, stop here and follow https://www.appjars.com/security/ instead.
+
+  - type: dropdown
+    id: appjar
+    attributes:
+      label: Which AppJar?
+      description: If more than one is involved, pick the one where the problem appears and mention the others below.
+      options:
+        - Activity Log
+        - AI Support
+        - Configuration Manager
+        - Data Query
+        - Dynamic Menu
+        - Email Manager
+        - I18N Manager
+        - Issue Tracker
+        - Process Manager
+        - User Manager
+        - User Profile
+        - AppJars Utils
+        - Parent POM / build
+        - Documentation
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: appjar-version
+    attributes:
+      label: AppJar version
+      description: The exact version from your pom.xml, not "latest".
+      placeholder: "2.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: vaadin-version
+    attributes:
+      label: Vaadin version
+      description: The exact version, including the minor. Only Vaadin 25 is supported.
+      placeholder: "25.2.1"
+    validations:
+      required: true
+
+  - type: input
+    id: platform-versions
+    attributes:
+      label: Java and Spring Boot versions
+      placeholder: "Java 21, Spring Boot 4.0.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happens
+    attributes:
+      label: What happens
+      description: Describe the actual behaviour. Include the full stack trace if there is one.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What you expected
+      description: What should have happened instead, and where the documentation says so if it does.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered, from a clean start. Include the relevant configuration properties.
+      placeholder: |
+        1. Add the dependency and configure ...
+        2. Start the application
+        3. Navigate to ...
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: input
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: A link to the smallest project that shows the problem. This is by far the most effective thing you can provide, and it usually decides how fast a bug gets fixed.
+      placeholder: "https://github.com/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Other relevant environment details
+      description: Database and version, browser, operating system, deployment mode, anything unusual about your setup.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues, open and closed, and this is not a duplicate.
+          required: true
+        - label: I understand this is not a support channel for my own application, and that help with integration, installation or configuration is delivered through the support portal.
+          required: true
+        - label: I understand that bug reports are handled the same way whether the reporter uses AppJars for free or under a paid subscription, and that fixing defects is part of the product rather than a paid service.
+          required: true

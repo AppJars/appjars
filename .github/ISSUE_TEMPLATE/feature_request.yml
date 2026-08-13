@@ -1,0 +1,79 @@
+name: Feature request
+description: Something you would like an AppJar to do
+title: "[Feature] "
+labels: ["type/feature", "status/needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are public on purpose: they are a record of what users need, and other users can add their own case to yours.
+
+        A request is not a commitment from us. We read all of them and decide what we build.
+
+  - type: dropdown
+    id: appjar
+    attributes:
+      label: Which AppJar?
+      description: Choose "New AppJar" if you are proposing something that does not fit any existing one.
+      options:
+        - Activity Log
+        - AI Support
+        - Configuration Manager
+        - Data Query
+        - Dynamic Menu
+        - Email Manager
+        - I18N Manager
+        - Issue Tracker
+        - Process Manager
+        - User Manager
+        - User Profile
+        - AppJars Utils
+        - Documentation
+        - New AppJar
+        - Across several / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the situation in your application and what currently gets in the way. This matters more than the proposed solution — it lets us solve the problem in a way that fits the rest of the catalog.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you have in mind
+      description: The behaviour, API or configuration you would like. Rough is fine.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried or considered
+      description: Workarounds, extension points you attempted, other libraries. Knowing what does not work is useful.
+    validations:
+      required: false
+
+  - type: input
+    id: appjar-version
+    attributes:
+      label: AppJar version you are on
+      placeholder: "2.1.0"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues, open and closed, and this is not a duplicate.
+          required: true
+        - label: I understand that feature requests are not eligible for Enterprise issue escalation, which applies to bug reports only.
+          required: true
+        - label: I am free to share this idea, it is not confidential to a third party, and I agree that Flowing Code may implement, adapt or decline it without compensation or attribution, as described in CONTRIBUTING.md.
+          required: true
