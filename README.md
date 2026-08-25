@@ -40,7 +40,8 @@ Bug fixes are scheduled by our own assessment of severity and impact. Issues car
 
 ## Consuming AppJars
 
-AppJars artifacts are published to our own Maven repository at `https://repo.appjars.com`. Setup instructions are in the [documentation](https://docs.appjars.com).
+AppJars artifacts are published under the `com.appjars` group ID to our own Maven repository at
+`https://maven.appjars.com`. Setup instructions are in the [documentation](https://docs.appjars.com).
 
 ## License
 
