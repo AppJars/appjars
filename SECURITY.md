@@ -50,6 +50,6 @@ Supported Vaadin versions are listed in the documentation: https://docs.appjars.
 websites and documentation, the customer portal, and attempts to circumvent license checking. Report
 third-party vulnerabilities to their respective maintainers.
 
-The demo and kickstart repositories are sample code rather than published artifacts. A security
-problem in the sample code itself belongs in that repository's issue tracker. A problem in the AppJar
-that the sample depends on goes to security@appjars.com.
+The demo repositories are sample code rather than published artifacts. A security problem in the
+sample code itself belongs in that demo's issue tracker. A problem in the AppJar that the demo
+depends on goes to security@appjars.com.
