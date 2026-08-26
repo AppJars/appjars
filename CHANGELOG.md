@@ -13,6 +13,25 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Manager 2.0.0 — 2026-08-25
+
+First public release of **User Manager**.
+
+The cornerstone of application security: users, roles and hierarchical groups, with granular access
+rules protecting views and URLs, plus built-in workflows for registration, password recovery and
+security policy enforcement.
+
+Earlier versions of User Manager have been released and are in production use. The version number
+continues that history — what is new today is that releases are public.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-manager-2.0.0) ·
+[Getting started](https://docs.appjars.com/user-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-manager/)
+
 ## Process Manager 2.0.0 — 2026-08-25
 
 First public release of **Process Manager**.
