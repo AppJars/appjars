@@ -13,6 +13,59 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.0.0 — 2026-08-25
+
+A large release. AI Support grows from a chat assistant over your documents into a full support
+channel, with messaging integrations, richer retrieval, and prompt management.
+
+### Messaging channels
+
+Conversations no longer have to start inside your application. AI Support now receives and replies to
+messages from **WhatsApp**, **Facebook Messenger** and **Instagram**, with attachments supported in
+both directions, and every channel managed from a single unified view.
+
+### Documents and retrieval
+
+- **Vector search** over your document library, directly from the documents view
+- **Document metadata** — store your own alongside any document, and view what was extracted
+- **Chunk templates** for controlling how a document is prepared for retrieval
+- **Retrieval detail** captured with each exchange, so you can see which chunks and queries produced
+  an answer
+- **Token estimates** for documents, messages and prompts
+
+### Prompts
+
+Prompts are now versioned. Every edit is recorded, the full revision history is available from the
+prompts view, and previous versions can be reviewed side by side with a diff.
+
+### Chat experience
+
+- **File attachments** in chat, with inline image previews
+- **Markdown rendering**, including Mermaid diagrams
+- **Mobile layout** and a resizable assistant window
+- **Private mode** for messages that stay out of the conversation
+- Search that scrolls directly to the matching message
+- Live updates across every view as data changes
+
+### Extensibility
+
+- **Tool support**, with automatic scanning of the tools you expose
+- **Authentication provider SPI** for plugging in your own identity source
+- **Session summaries** through a provider interface, with a default implementation
+
+### Upgrading
+
+This is a major release, and the public API has moved on since 1.0.0. Review the getting started
+guide before upgrading, and expect to revisit your configuration.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.0.0) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## Activity Log 2.0.0 — 2026-08-25
 
 First public release of **Activity Log**.
