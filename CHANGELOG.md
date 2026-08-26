@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Email Manager 2.0.0 — 2026-08-25
+
+First public release of **Email Manager**.
+
+Decouple writing an email from sending it. Messages are queued in your database, sent asynchronously,
+retried automatically when delivery fails, and kept with their full delivery history.
+
+Earlier versions of Email Manager have been released and are in production use. The version number
+continues that history — what is new today is that releases are public.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/email-manager-2.0.0) ·
+[Getting started](https://docs.appjars.com/email-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/email-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/email-manager/)
+
 ## Dynamic Menu 2.0.0 — 2026-08-25
 
 First public release of **Dynamic Menu**.
