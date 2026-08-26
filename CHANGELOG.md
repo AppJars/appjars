@@ -13,6 +13,48 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## I18N Manager 3.0.0 — 2026-08-25
+
+A major release, built on a reorganisation of the module's public API.
+
+### Locale handling
+
+- The UI locale is now **resolved from the browser's language preferences** on each page load, so a
+  visitor sees your application in their own language without any configuration
+- **Manual locale controls** are exposed for applications that let users choose explicitly
+
+### Translation workflow
+
+- Scanning for missing keys can now **load them from the parent language**, so a regional variant
+  starts from its base language instead of from nothing
+- Refinements throughout the language and translation views
+
+### API changes
+
+Flow classes have moved from `com.appjars.i18nmanager.vaadin.*` to `com.appjars.i18nmanager.flow.*`,
+aligning I18N Manager with the package layout used across the catalog. **This is the change that
+makes 3.0.0 a major release.**
+
+To upgrade, update the imports in your application:
+
+```
+com.appjars.i18nmanager.vaadin.  →  com.appjars.i18nmanager.flow.
+```
+
+If you list AppJars packages in `vaadin.allowed-packages`, update that entry too.
+
+Alongside the move, the public surface has been tightened: implementation classes are no longer
+exposed, and the DTO and serialization contracts are stricter. Applications using the documented API
+are unaffected.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/i18n-manager-3.0.0) ·
+[Getting started](https://docs.appjars.com/i18n-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/i18n-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/i18n-manager/)
+
 ## Email Manager 2.0.0 — 2026-08-25
 
 First public release of **Email Manager**.
