@@ -17,6 +17,8 @@ This repository contains **no source code**. It is the public issue tracker for 
 
 Free and paid users report through the same tracker and are treated the same way. Fixing bugs is part of the product, not a paid service.
 
+It is also where releases are recorded. [CHANGELOG.md](CHANGELOG.md) lists every AppJar release, newest first, and each release is tagged in this repository.
+
 ## Where to go
 
 | I want to… | Go to |
@@ -27,6 +29,7 @@ Free and paid users report through the same tracker and are treated the same way
 | Report a security vulnerability | https://www.appjars.com/security/ |
 | Get help with **my own** application | [Customer portal](https://customers.flowingcode.com) — human support and AI assistant, included with Startup and Enterprise |
 | Read the documentation | https://docs.appjars.com |
+| See what changed in a release | [CHANGELOG.md](CHANGELOG.md) |
 
 See [SUPPORT.md](SUPPORT.md) for the full explanation of each channel.
 
