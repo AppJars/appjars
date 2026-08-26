@@ -13,6 +13,25 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Issue Tracker 2.0.0 — 2026-08-25
+
+First public release of **Issue Tracker**.
+
+Embed a complete issue tracking system inside your own application. Manage projects, tickets, custom
+workflows and time tracking without sending users to an external tool, and keep the data in your own
+database.
+
+Earlier versions of Issue Tracker have been released and are in production use. The version number
+continues that history — what is new today is that releases are public.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/issue-tracker-2.0.0) ·
+[Getting started](https://docs.appjars.com/issue-tracker/getting-started/) ·
+[Documentation](https://docs.appjars.com/issue-tracker/overview/) ·
+[Pricing](https://www.appjars.com/catalog/issue-tracker/)
+
 ## I18N Manager 3.0.0 — 2026-08-25
 
 A major release, built on a reorganisation of the module's public API.
