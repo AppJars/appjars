@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Configuration Manager 2.0.0 — 2026-08-25
+
+First public release of **Configuration Manager**.
+
+Manage global and per-user settings at runtime, without touching a properties file or redeploying.
+Every change is recorded with a full audit history of who changed what, and when.
+
+Earlier versions of Configuration Manager have been released and are in production use. The version
+number continues that history — what is new today is that releases are public.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/configuration-manager-2.0.0) ·
+[Getting started](https://docs.appjars.com/configuration-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/configuration-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/configuration-manager/)
+
 ## AI Support 2.0.0 — 2026-08-25
 
 A large release. AI Support grows from a chat assistant over your documents into a full support
