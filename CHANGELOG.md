@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Dynamic Menu 2.0.0 — 2026-08-25
+
+First public release of **Dynamic Menu**.
+
+Build multi-level navigation that is defined at runtime rather than hardcoded, with visibility
+filtered automatically by each user's permissions.
+
+Earlier versions of Dynamic Menu have been released and are in production use. The version number
+continues that history — what is new today is that releases are public.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/dynamic-menu-2.0.0) ·
+[Getting started](https://docs.appjars.com/dynamic-menu/getting-started/) ·
+[Documentation](https://docs.appjars.com/dynamic-menu/overview/) ·
+[Pricing](https://www.appjars.com/catalog/dynamic-menu/)
+
 ## Data Query 1.0.0 — 2026-08-25
 
 First public release of **Data Query**.
