@@ -13,6 +13,22 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Data Query 1.0.0 — 2026-08-25
+
+First public release of **Data Query**.
+
+Turn stored queries into complete reporting screens without writing Java or redeploying. Define a
+query once and Data Query generates the parameter form, the results grid, the charts and the
+drill-down navigation — plus dashboards and pixel-accurate PDF reports designed in a visual editor.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/data-query-1.0.0) ·
+[Getting started](https://docs.appjars.com/data-query/getting-started/) ·
+[Documentation](https://docs.appjars.com/data-query/overview/) ·
+[Pricing](https://www.appjars.com/catalog/data-query/)
+
 ## Configuration Manager 2.0.0 — 2026-08-25
 
 First public release of **Configuration Manager**.
