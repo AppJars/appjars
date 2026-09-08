@@ -13,6 +13,33 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.0.1 — 2026-09-08
+
+A patch release, with fixes to document categories, the chat bubble, and listener lifecycle in the
+views.
+
+### Fixes
+
+- Documents assigned to **more than one category** are now retrieved when filtering by any of them.
+- The **category metadata backfill** — which repairs the metadata of embeddings uploaded before this
+  release — now runs once the application is ready, with its error boundary outside the transaction,
+  so a failure is reported without affecting the host application. Its query no longer depends on the
+  `?` jsonb operator, which is read as a parameter placeholder in some setups.
+- **Embedding metadata storage** is now pinned to `jsonb`, so the embedding store always agrees with
+  the entity mapping rather than depending on bean initialization order.
+- The **chat bubble** now handles an installation with no assistant configured: the message input
+  stays disabled and the send pipeline guards the case.
+- **Lazy channel proxies** are now unwrapped before conversion.
+- **Resize listeners** are now scoped to the view that registers them and released when it detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.0.1) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## User Profile 2.0.0 — 2026-08-25
 
 First public release of **User Profile**.
