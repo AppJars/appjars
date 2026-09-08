@@ -13,6 +13,25 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Email Manager 2.0.1 — 2026-09-08
+
+A patch release, covering attachment uploads and listener lifecycle in the views.
+
+### Fixes
+
+- **Attachment upload** now uses the upload handler API. Each upload is read into a bounded buffer,
+  and the retained count and reported MIME type are validated before anything is stored, so an
+  invalid or unreadable upload is rejected and no temporary file is left behind.
+- **Resize listeners** are now scoped to the view that registers them and released when it detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/email-manager-2.0.1) ·
+[Getting started](https://docs.appjars.com/email-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/email-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/email-manager/)
+
 ## AI Support 2.0.1 — 2026-09-08
 
 A patch release, with fixes to document categories, the chat bubble, and listener lifecycle in the
