@@ -13,6 +13,31 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Issue Tracker 2.0.1 — 2026-09-08
+
+A patch release that tightens listener lifecycle across the views.
+
+### Fixes
+
+- **Resize listeners** are now scoped to the component that registers them and released when it
+  detaches.
+- **Custom query save listeners** are now owned by each subscriber, registered on attach and removed
+  on detach, and kept across saves and cancels, so every attached component is notified of every
+  save.
+
+### API note
+
+`CustomQueryDialog.addCustomQuerySaveListener` now returns a `Registration` instead of `void`. Calls
+that ignore the result keep compiling; recompile against 2.0.1.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/issue-tracker-2.0.1) ·
+[Getting started](https://docs.appjars.com/issue-tracker/getting-started/) ·
+[Documentation](https://docs.appjars.com/issue-tracker/overview/) ·
+[Pricing](https://www.appjars.com/catalog/issue-tracker/)
+
 ## Email Manager 2.0.1 — 2026-09-08
 
 A patch release, covering attachment uploads and listener lifecycle in the views.
