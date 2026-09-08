@@ -13,6 +13,28 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Manager 2.0.1 — 2026-09-08
+
+A patch release, with fixes to the access rule dialog, registration links, and listener lifecycle in
+the views.
+
+### Fixes
+
+- The **access rule editing dialog** now keeps its delete button available, whether or not the
+  creation dialog was opened earlier in the same session.
+- **Registration link conversion** now handles lazy proxies.
+- **Resize listeners** are now scoped to the component that registers them — the view in routed
+  views, the dialog in the rule dialog, and the row detail layout in the users, groups, rules and
+  views lists — and released when it detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-manager-2.0.1) ·
+[Getting started](https://docs.appjars.com/user-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-manager/)
+
 ## Issue Tracker 2.0.1 — 2026-09-08
 
 A patch release that tightens listener lifecycle across the views.
