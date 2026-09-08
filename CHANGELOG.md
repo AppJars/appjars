@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Profile 2.0.1 — 2026-09-08
+
+A patch release, covering the avatar upload and listener lifecycle in the views.
+
+### Fixes
+
+- **Avatar upload** now uses the upload handler API.
+- **Resize listeners** are now scoped to the view that registers them and released when it detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer. The backend and service
+layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-profile-2.0.1) ·
+[Getting started](https://docs.appjars.com/user-profile/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-profile/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-profile/)
+
 ## User Manager 2.0.1 — 2026-09-08
 
 A patch release, with fixes to the access rule dialog, registration links, and listener lifecycle in
