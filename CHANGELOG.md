@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## I18N Manager 3.0.1 — 2026-09-29
+
+A patch release, covering listener lifecycle in the views.
+
+### Fixes
+
+- **Resize listeners** are now scoped to the component that registers them and released when it
+  detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/i18n-manager-3.0.1) ·
+[Getting started](https://docs.appjars.com/i18n-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/i18n-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/i18n-manager/)
+
 ## Email Manager 2.0.2 — 2026-09-29
 
 A patch release that changes who can open the email list.
