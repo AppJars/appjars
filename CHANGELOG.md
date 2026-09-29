@@ -13,6 +13,77 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.1.0 — 2026-09-29
+
+A minor release. Tools are now assigned per assistant, the chat memory keeps long conversations
+within a token budget, and the LLM Inspector shows what tools cost.
+
+### Tools per assistant
+
+Each assistant now receives only the tools assigned to it, from a new **Tools** tab in the assistant
+dialog. An administrator can assign a whole class, which includes the tools added to it later, or
+individual tools. `appjars.aisupport.tooling.allowedPackages` now bounds which tools can be
+assigned.
+
+### Chat memory
+
+- The chat memory is now a **token window with a running summary**: older turns are folded into the
+  summary instead of being dropped, so the context of a long conversation survives.
+- Compaction runs **in the background** once the answer has been delivered.
+- **Attachments** are kept by reference, and the most recent ones stay available as they were sent.
+- New `appjars.aisupport.memory.*` properties set the budgets. Their defaults derive from
+  `appjars.aisupport.memory.max-tokens`, so one property is enough to resize the memory.
+- The summarizer has its own `appjars.aisupport.memory.summarize.timeout`, and
+  `com.appjars.aisupport.models.timeout` no longer applies to it.
+
+### LLM Inspector
+
+- Each exchange shows the **tools offered** to the model, the **calls** it made with their arguments
+  and results, the tokens the tools cost, and the number of model calls.
+- The LLM row shows the model type and name.
+
+### Chat experience
+
+- The **mention list** leads with the role calls, shows each person's name above the username it
+  types, and says when more users match.
+- The **participant list** shows the username under each name.
+- **Mentioning the assistant** in a manual conversation now passes that message to the model.
+- The Chat, LLM Inspector, Assistants and LLMs views accept **filters as URL query parameters**, so
+  a filtered view can be linked to directly.
+
+### Messaging channels
+
+A message from a contact whose previous session is closed or archived now **opens a new session**,
+and the previous one stays as the record of that conversation.
+
+### Fixes
+
+- **Prompt overrides** placed under `/prompts` now apply to background tasks as well when the
+  application runs from a Spring Boot jar.
+
+### Upgrading
+
+Tools used to be available to every assistant. Assignments are not created on upgrade, so existing
+assistants start with no tools: open each assistant and assign its tools in the **Tools** tab.
+**Select all** restores the previous behaviour for that assistant.
+
+### API changes
+
+- `ToolCatalogService` exposes the discovered tools, and `AssistantDto.getToolAssignments()` carries
+  the assignments of an assistant as `ToolAssignmentDto` records.
+- `UserProfilePictureProvider` adds `getDisplayNameByUsername(String)`, an optional default method
+  that supplies the name shown in the mention and participant lists.
+- `LlmExchangeDto.getLlmContent()` is deprecated for removal and always returns `null`. Use
+  `getLlmId()`, `getLlmName()` and `getLlmType()` to identify the model.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.1.0) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## Activity Log 2.1.0 — 2026-09-29
 
 A minor release, with refinements to the extractor and remover views.
