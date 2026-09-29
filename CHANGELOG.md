@@ -13,6 +13,22 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Process Manager 2.0.1 — 2026-09-29
+
+A patch release, covering listener lifecycle in the process list.
+
+### Fixes
+
+- **Resize listeners** are now released when the process list view detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/process-manager-2.0.1) ·
+[Getting started](https://docs.appjars.com/process-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/process-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/process-manager/)
+
 ## Issue Tracker 2.0.2 — 2026-09-29
 
 A patch release, covering uploads, saved filters, project activity and user pickers.
