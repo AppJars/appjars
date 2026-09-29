@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Configuration Manager 2.0.1 — 2026-09-29
+
+A patch release, covering listener lifecycle in the views.
+
+### Fixes
+
+- **Resize listeners** are now scoped to the component that registers them and released when it
+  detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/configuration-manager-2.0.1) ·
+[Getting started](https://docs.appjars.com/configuration-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/configuration-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/configuration-manager/)
+
 ## AI Support 2.1.0 — 2026-09-29
 
 A minor release. Tools are now assigned per assistant, the chat memory keeps long conversations
