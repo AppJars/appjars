@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Email Manager 2.0.2 — 2026-09-29
+
+A patch release that changes who can open the email list.
+
+### Upgrading
+
+The **Emails** view now opens for any authenticated user, and it lists every email. If only some
+roles should manage emails, restrict the view through your application's security configuration, for
+example with a User Manager access rule on its route.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/email-manager-2.0.2) ·
+[Getting started](https://docs.appjars.com/email-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/email-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/email-manager/)
+
 ## Dynamic Menu 2.1.0 — 2026-09-29
 
 A minor release, focused on how the free mode allowance is counted.
