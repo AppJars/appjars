@@ -13,6 +13,41 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Dynamic Menu 2.1.0 — 2026-09-29
+
+A minor release, focused on how the free mode allowance is counted.
+
+### Free mode
+
+- **Separators**, **items without a URL** and **items that open a view of an AppJar** no longer
+  count towards the five-item allowance, so it is kept for the entries of your own views.
+- **New item** and **Import** stay available at the limit. The item editor and the import dialog
+  disable **Save** only when the result would exceed the allowance, and the import projection
+  follows the selected strategy.
+
+### Fixes
+
+- The **item editor** now keeps an icon family that the application no longer offers when the item
+  is saved.
+
+### API note
+
+`MenuItemService` adds three abstract methods, along with the `FreeLimitStatus` record they use:
+
+- `getFreeLimitStatus()`
+- `canSaveWithinFreeLimit(MenuItemDto)`
+- `canImportWithinFreeLimit(List<MenuItemDto>, ImportStrategy)`
+
+An application that implements the interface itself must implement them when upgrading.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.2.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/dynamic-menu-2.1.0) ·
+[Getting started](https://docs.appjars.com/dynamic-menu/getting-started/) ·
+[Documentation](https://docs.appjars.com/dynamic-menu/overview/) ·
+[Pricing](https://www.appjars.com/catalog/dynamic-menu/)
+
 ## Data Query 1.0.1 — 2026-09-29
 
 A patch release, covering REST request tests and the grid export.
