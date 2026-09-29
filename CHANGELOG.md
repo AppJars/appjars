@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Manager 2.0.2 — 2026-09-29
+
+A patch release that creates the anonymous authority at startup.
+
+### Fixes
+
+- The **anonymous authority** is now created at startup when it is missing, so an installation that
+  adopts User Manager over an existing user table has it from the first anonymous visit.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-manager-2.0.2) ·
+[Getting started](https://docs.appjars.com/user-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-manager/)
+
 ## Process Manager 2.0.1 — 2026-09-29
 
 A patch release, covering listener lifecycle in the process list.
