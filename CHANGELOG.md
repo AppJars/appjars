@@ -13,6 +13,29 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Activity Log 2.1.0 — 2026-09-29
+
+A minor release, with refinements to the extractor and remover views.
+
+### Extractors and removers
+
+- The **name filter** of the extractor and remover lists now applies when Enter is pressed.
+- A failed save now shows its error **next to the affected field**, reports an empty logger or
+  detail filter section under its own grid, and scrolls to the first section with an error.
+
+### Fixes
+
+- **Resize listeners** are now scoped to the component that registers them and released when it
+  detaches.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/activity-log-2.1.0) ·
+[Getting started](https://docs.appjars.com/activity-log/getting-started/) ·
+[Documentation](https://docs.appjars.com/activity-log/overview/) ·
+[Pricing](https://www.appjars.com/catalog/activity-log/)
+
 ## User Profile 2.0.1 — 2026-09-08
 
 A patch release, covering the avatar upload and listener lifecycle in the views.
