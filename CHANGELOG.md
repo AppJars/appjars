@@ -13,6 +13,34 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Issue Tracker 2.0.2 — 2026-09-29
+
+A patch release, covering uploads, saved filters, project activity and user pickers.
+
+### Fixes
+
+- **File uploads** in custom fields and CSV imports now use the upload handler API, one file at a
+  time.
+- In the **CSV import**, **Next** is available only while a non-empty file is uploaded, and starting
+  another import clears the headers of the previous one.
+- Saved queries now keep the values of the **Assignee's group** filter.
+- **Project activity** now reads activity timestamps in every type the database driver returns.
+- **User pickers** now handle installations without the anonymous user.
+
+### API note
+
+`CustomFieldUploadComponent.setAcceptedFileTypes(String...)` now takes file extensions with their
+leading dot, such as `.png`, and raises an `IllegalArgumentException` for a MIME type.
+`UserService.findAnonymousUser()` returns `null` when the anonymous user does not exist.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/issue-tracker-2.0.2) ·
+[Getting started](https://docs.appjars.com/issue-tracker/getting-started/) ·
+[Documentation](https://docs.appjars.com/issue-tracker/overview/) ·
+[Pricing](https://www.appjars.com/catalog/issue-tracker/)
+
 ## I18N Manager 3.0.1 — 2026-09-29
 
 A patch release, covering listener lifecycle in the views.
