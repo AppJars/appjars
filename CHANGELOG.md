@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Data Query 1.0.1 — 2026-09-29
+
+A patch release, covering REST request tests and the grid export.
+
+### Fixes
+
+- **Test request** now runs in the background, with a loading indicator in the **Request result**
+  dialog.
+- The **grid export** footer is now opaque on Vaadin 25.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.2.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/data-query-1.0.1) ·
+[Getting started](https://docs.appjars.com/data-query/getting-started/) ·
+[Documentation](https://docs.appjars.com/data-query/overview/) ·
+[Pricing](https://www.appjars.com/catalog/data-query/)
+
 ## Configuration Manager 2.0.1 — 2026-09-29
 
 A patch release, covering listener lifecycle in the views.
