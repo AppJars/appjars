@@ -13,6 +13,38 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## I18N Manager 3.1.0 — 2026-10-20
+
+A feature release that helps translators get **MessageFormat** right before they save.
+
+### Added
+
+- Translation values are now **analyzed as they are edited**, in the grid editor and in the create
+  dialog: a malformed pattern or an excessive length is reported as an error, a lone apostrophe in a
+  parameterized value as a warning, and a doubled apostrophe without placeholders as a hint.
+- The feedback explains **how many placeholders a single apostrophe hides** — the mistake
+  MessageFormat itself cannot report, because the apostrophe quotes the rest of the value — and shows
+  a **preview with sample values** alongside the count of placeholders in the text.
+- **Learn more** now opens a dialog summarising the four rules a translator needs, each with what is
+  typed and how it is shown, and links to the MessageFormat Javadoc as the full source. The examples
+  are computed by MessageFormat itself, so they cannot drift from the actual behaviour.
+
+### Fixes
+
+- Braces hidden by a lone apostrophe are rejected, quoted braces that cannot be written unquoted are
+  accepted, and an unclosed nested brace is reported as an error instead of throwing.
+- The feedback popover closes when its field loses focus or is scrolled out of view, and the grid
+  editor stays usable around it.
+- The translation field keeps its label in the create dialog.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/i18n-manager-3.1.0) ·
+[Getting started](https://docs.appjars.com/i18n-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/i18n-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/i18n-manager/)
+
 ## Email Manager 2.1.0 — 2026-10-20
 
 A feature release: **email templates**, a reusable subject and body with named placeholders, applied
