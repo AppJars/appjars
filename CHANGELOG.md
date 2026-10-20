@@ -13,6 +13,131 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.2.0 — 2026-10-20
+
+A large release. The assistant now reaches beyond the application: the chat bubble can be embedded in
+any website, it talks to Anthropic and Gemini models as well as OpenAI and Ollama, and it records,
+hears and transcribes voice notes.
+
+### Embedded chat
+
+- The chat bubble is now published as the **`<ai-support-chat>` web component**, so it can be placed
+  on any site — a static marketing page included — and answered from the application like any other
+  conversation.
+- **Web channels** tie each embedding site to an assistant. Only a site with an enabled web channel
+  can load the chat, and turning the channel off takes the chat off the site.
+- Visitors are anonymous: each browser gets its own cookie and is named `visitor-` plus a short hash.
+- The embedded chat is built in the **embedding page's language**, sends the page's context with each
+  message, and can be dragged to a corner, which it remembers.
+- Hosts can **switch off optional features** and suppress notifications, and the chat works inside a
+  shadow root.
+- Visitor sessions are purged after a while, with bounds on how many messages a visitor sends and on
+  the length of messages and context.
+- Setup: serve it from a host on the site's own domain, let `/web-component/**` through the security
+  configuration, and have Vaadin scan `com.appjars.aisupport.flow.embed`. The README has the full
+  procedure.
+
+### Models and providers
+
+- **Anthropic and Gemini models** are now supported, alongside OpenAI, OpenAI-compatible servers and
+  Ollama.
+- Each LLM now stores **the content types its model accepts**, prefilled from a built-in model
+  catalog and editable in the LLM form.
+- An LLM's configuration can be **tested from its form**.
+- An attachment a model does not accept is now sent as text, or as a note when it cannot be.
+- Token estimates now cover OpenAI models the tokenizer does not know.
+
+### Voice notes and transcription
+
+- Users can **record and play voice notes** where the chat offers attachments.
+- Audio is **transcribed by the system LLM** for models that do not hear it, and the transcript is
+  stored with the attachment, shown under the audio, and used wherever the text of a message is read
+  — retrieval, moderation and the session summary.
+- Audio is sent in the formats each provider reads, and its tokens are estimated by how long it
+  plays.
+
+### Attachments and chat memory
+
+- The chat now accepts **Markdown, CSV and Excel** attachments.
+- Documents a model does not read are sent as their text, long PDFs included, with PDF pages capped
+  per turn.
+- A turn's attachments are **fitted to a token budget**, and the uploader is told when text was cut.
+  Administrators are told when a channel attachment could not be fully read.
+- The memory budget now defaults to **25,000 tokens**, and a turn the model rejected is kept out of
+  the memory.
+- Model errors reach the inspector with their reason and **without credentials or quoted secrets**.
+
+### Private messages and session summaries
+
+- Every assistant prompt is now **wrapped in fixed rules**, and private messages are kept out of
+  answers everybody sees and out of users' message search.
+- Administrators can send **private messages from the chat bubble**, and switch a session between
+  automatic and manual mode.
+- Session summaries are now generated **in batches** on their own executor, instead of after every
+  answer.
+
+### Channels
+
+- Host applications can now **add channel types of their own**, with no persistence code.
+- Repeated or concurrent channel messages are kept in one session, a channel is deleted and its
+  sessions unlinked in one transaction, and WhatsApp Coexistence echoes are read as the business's
+  own messages.
+- Replies longer than a channel accepts are sent in parts, a channel is marked failed when its
+  provider answers 401 or rejects an upload, and WhatsApp media is streamed so the size limit stops
+  large files.
+
+### Administration views on phones
+
+- The administration views, filters, dialogs, content viewer, vector search, inspector and tools
+  picker now **fit on phones**, with dialogs shown full screen and a row's hidden columns shown on a
+  tap.
+- Session and message search results are shown in tabs with their counts, the extra document actions
+  are gathered in a menu, and the message input's actions collapse into an overflow menu.
+
+### Fixes
+
+- The embedding store database now defaults to `spring.datasource.url`.
+- Enum columns no longer generate CHECK constraints, and the logging backend is left to the host
+  application.
+- AI Support starts without an application `UserProfilePictureProvider`, and the queries of the
+  largest tables are indexed.
+
+### Upgrading
+
+Databases created by earlier versions keep check constraints and a narrow configuration column that
+`ddl-auto=update` never changes. Run once, before creating an Anthropic or Gemini LLM, a web channel
+or a channel of your own type:
+
+```sql
+ALTER TABLE as_llm DROP CONSTRAINT IF EXISTS as_llm_type_check;
+ALTER TABLE as_llm_exchange DROP CONSTRAINT IF EXISTS as_llm_exchange_llm_type_check;
+ALTER TABLE as_llm ALTER COLUMN configuration TYPE text;
+ALTER TABLE as_channel DROP CONSTRAINT IF EXISTS as_channel_channel_type_check;
+```
+
+Transcripts are stored in the new `transcript` column of `as_message_attachment`, which
+`ddl-auto=update` adds; a schema managed otherwise needs it added once.
+
+- `memory.max-tokens` now defaults to `25000` instead of `10000`. Set it to `10000` to keep the
+  previous size, and lower it for a small-context model.
+- Answering no longer regenerates the session summary. The chat views request summaries themselves;
+  code that adds messages outside them calls `AssistantService.summarizeSession`.
+- `ChannelService`, `ChannelDao`, `MessageAttachmentService` and `MessageAttachmentDao` gain methods.
+  Applications that implement any of these interfaces themselves must implement them.
+- A session open before the upgrade keeps the private messages its memory already holds until it is
+  closed. `DELETE FROM as_chat_memory` clears them right away, at the cost of the earlier context of
+  those conversations.
+- The enum-typed channel accessors and `PromptDto.system` are deprecated; `ChannelDto.getType()`
+  returns the type key of every channel.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.1.0.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.2.0) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## User Manager 2.0.2 — 2026-09-29
 
 A patch release that creates the anonymous authority at startup.
