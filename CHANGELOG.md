@@ -13,6 +13,51 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Email Manager 2.1.0 — 2026-10-20
+
+A feature release: **email templates**, a reusable subject and body with named placeholders, applied
+to a new email from the compose form.
+
+### Added
+
+- A **template list view** at `em/templates`, with a WYSIWYG editor, an HTML source view, a
+  placeholder palette with usage counts and a live preview, laid out for narrow screens.
+- An **apply-template action** in the compose form, which renders the template and fills the subject,
+  body and HTML flag. The email keeps no reference to the template it came from, and placeholder
+  values are asked for when the template is applied.
+- Templates are offered in the **best language variant** available when composing.
+- **`PlaceholderCatalog`**, an optional SPI: an application publishes one or more beans to offer its
+  own placeholder names in every template's palette.
+- Two tables, `em_template` and `em_template_placeholder`, and the configuration properties
+  `com.appjars.emailmanager.templates.max-body-size`, `max-rendered-size` and `locales`.
+
+### Changed
+
+- The flow artifact now depends on `org.parttio:hugerte-for-flow`, which carries the MIT-licensed
+  HugeRTE editor and serves its JavaScript from the application's own `/assets/` path rather than a
+  CDN. An application with a custom Spring Security configuration has to permit that path.
+- The business artifacts now declare `org.jsoup:jsoup` directly. One sanitising policy is applied
+  everywhere email HTML is shown, and it keeps the inline styles HTML email depends on.
+
+### Fixes
+
+- The **email list** is now reachable when no access rule matches its route.
+- Template bodies are stored as written, every date type the renderer accepts is formatted, and the
+  placeholders of a page of templates are loaded in one query.
+- The editor keeps source edits when HTML is switched off, sends its content on change and blur, and
+  keeps the last keystrokes when Save follows quickly.
+
+Nothing in 2.0 changes: `EmailDto`, `em_email`, `EmailService` and the `EmailCrudView` constructor
+are untouched, so an application that ignores templates sees no difference beyond the two new tables.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/email-manager-2.1.0) ·
+[Getting started](https://docs.appjars.com/email-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/email-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/email-manager/)
+
 ## AI Support 2.2.0 — 2026-10-20
 
 A large release. The assistant now reaches beyond the application: the chat bubble can be embedded in
