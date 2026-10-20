@@ -13,6 +13,40 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Issue Tracker 2.0.3 — 2026-10-20
+
+A patch release, with access control fixes, saved query fixes and a report by version.
+
+### Fixes
+
+- **Access controls are now enforced on every view.** Parent project choices are restricted to
+  projects where the user may add subprojects, project creation is gated on the global add-project
+  permission, version create and edit actions are hidden on inactive projects, and an import re-reads
+  its target project before saving.
+- **Saved issue queries** now preserve user filters, read the legacy `-1` placeholder as *me*, and
+  keep *me* in the time entry author URL filter.
+- The **settings view** is now registered at the configured path, whether
+  `appjars.issuetracker.url.views.settings` is given as a segment or as a full path under the root.
+- The spent time format on the issue card is aligned with the rest of the application.
+
+### Added
+
+- A **report by version**, with users scoped to the project's active members and unassigned and group
+  assignees counted.
+
+### Documentation
+
+- The README now documents the configurable properties and describes the user sync events Issue
+  Tracker consumes.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/issue-tracker-2.0.3) ·
+[Getting started](https://docs.appjars.com/issue-tracker/getting-started/) ·
+[Documentation](https://docs.appjars.com/issue-tracker/overview/) ·
+[Pricing](https://www.appjars.com/catalog/issue-tracker/)
+
 ## I18N Manager 3.1.0 — 2026-10-20
 
 A feature release that helps translators get **MessageFormat** right before they save.
