@@ -13,6 +13,30 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Profile 2.0.2 — 2026-10-20
+
+A patch release that makes the **redirect to the profile view** reliable for users who have none.
+
+### Fixes
+
+- The redirect is now decided at UI init and forwarded once from a navigation listener, so the
+  profile route is no longer rendered into the UI init response — which is what made dialogs and
+  virtual lists log unhandled promise rejections and `scrollToIndex` errors on the first navigation.
+- The redirect now **runs before access control**, so a login that resumes a saved request to a route
+  the user cannot access reaches the profile view instead of the error view.
+- An error navigation no longer forwards the redirect, which used to hide the error and fail the
+  navigation outright when the denied route was the profile view itself.
+- The listener no longer reads the session proxy on every navigation, so a navigation from a
+  background thread inside `UI.access` works, and the UI stays serializable.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-profile-2.0.2) ·
+[Getting started](https://docs.appjars.com/user-profile/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-profile/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-profile/)
+
 ## Issue Tracker 2.0.3 — 2026-10-20
 
 A patch release, with access control fixes, saved query fixes and a report by version.
