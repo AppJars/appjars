@@ -13,6 +13,49 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.2.1 — 2026-10-22
+
+A patch release that finishes the phone experience 2.2.0 began: the system Back button, the session
+panes, and notifications.
+
+### On phones
+
+- The **phone's Back button** now closes an open AI Support dialog, confirmation or the chat bubble's
+  mobile window before leaving the page. A dialog that guards unsaved changes still asks, a dialog
+  opened from another one runs its back action, and a focused field commits its value first. Only the
+  layers AI Support registers take part, so the host application's own overlays keep the browser's
+  Back.
+- **Back returns to the session list** from a session opened by a link or started as a new chat, in
+  the chat view and in the inspector, and the inspector's chunk, metadata and tool-call dialogs go
+  back to the dialog they came from.
+- The chat view now **keeps the pane the user asked for**: a link to a session opens the
+  conversation, rotating the phone keeps it, and deleting the open session shows the list.
+- The **inspector now shares the chat view's URL and panes**, so opening a session or the list pushes
+  one history entry and applying a URL writes none.
+- The chat bubble's **mobile window now tracks seen messages**, so the new-messages popover opens and
+  the scroll position is kept while messages stream.
+- **Notifications stretch across the screen**, sideways phones included, keeping their margin and
+  rounded corners — and are unchanged on wider screens.
+- The session list button has an accessible name and a tooltip.
+
+### Fixes
+
+- **A session switched to manual stays manual** when a message is recorded. Recording now saves the
+  new activity dates onto the stored session instead of the copy the answer started from, so a
+  conversation handed to a person is no longer taken back by the assistant.
+- The channels view now **shows why a host application rejected a channel**. A host rejects one with
+  a backend-core `ServiceException` whose i18n key it translates in its own bundle, and the view
+  shows that message as a warning; any other failure is logged and shown as the generic error, so
+  technical messages never reach the screen.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.1.0.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.2.1) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## User Profile 2.0.2 — 2026-10-20
 
 A patch release that makes the **redirect to the profile view** reliable for users who have none.
