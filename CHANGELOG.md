@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Dynamic Menu 2.1.1 — 2026-11-19
+
+A patch release that aligns Dynamic Menu with the other AppJars on appjars-utils 2.0.3.
+
+### Fixes
+
+- **appjars-utils 2.0.3** is now the minimum version, the one the other AppJars already require, so
+  an application that combines them resolves a single version.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/dynamic-menu-2.1.1) ·
+[Getting started](https://docs.appjars.com/dynamic-menu/getting-started/) ·
+[Documentation](https://docs.appjars.com/dynamic-menu/overview/) ·
+[Pricing](https://www.appjars.com/catalog/dynamic-menu/)
+
 ## Data Query 1.0.2 — 2026-11-19
 
 A patch release that aligns Data Query's dependencies with the other AppJars.
