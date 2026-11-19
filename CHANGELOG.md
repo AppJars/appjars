@@ -13,6 +13,24 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Activity Log 2.1.1 — 2026-11-19
+
+A patch release that tidies how the UI module is auto-configured.
+
+### Fixes
+
+- The **UI module** now registers its auto-configuration only through `AutoConfiguration.imports`,
+  the mechanism Spring Boot 4 reads. The outdated `META-INF/spring.factories` entry is gone, so
+  tools that still scan that file find nothing to load from it.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/activity-log-2.1.1) ·
+[Getting started](https://docs.appjars.com/activity-log/getting-started/) ·
+[Documentation](https://docs.appjars.com/activity-log/overview/) ·
+[Pricing](https://www.appjars.com/catalog/activity-log/)
+
 ## AI Support 2.2.1 — 2026-10-22
 
 A patch release that finishes the phone experience 2.2.0 began: the system Back button, the session
