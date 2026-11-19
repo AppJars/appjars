@@ -77,6 +77,24 @@ configured, and better coexistence with the host application's logging and cachi
 
 ### Upgrading
 
+**Schemas created by Hibernate** from 2.0.3 or earlier have unique constraints that, for example,
+keep a project from having a second version. `ddl-auto=update` does not drop them. Dropping them is
+optional: without it the application starts and behaves as in 2.0.3. On PostgreSQL, list them:
+
+```sql
+SELECT conrelid::regclass AS table_name, conname, pg_get_constraintdef(oid)
+FROM pg_constraint
+WHERE contype = 'u'
+  AND conrelid::regclass::text IN ('versions', 'queries', 'projects');
+```
+
+Then drop the ones on `versions.project_id`, `queries.project_id`, `projects.default_version_id`,
+`projects.default_assigned_to_id` and `projects.default_issue_query_id`, for example:
+
+```sql
+ALTER TABLE versions DROP CONSTRAINT <conname>;
+```
+
 - **Logging is left to your application.** Issue Tracker no longer brings in the Log4j 2 starter, so
   it runs with Spring Boot's default Logback setup. If your application logs with Log4j 2, declare
   `spring-boot-starter-log4j2` and exclude `spring-boot-starter-logging` in your own build.
@@ -85,10 +103,6 @@ configured, and better coexistence with the host application's logging and cachi
   caches must inject it by name, with `@Qualifier(IssueTrackerCacheConfiguration.CACHE_MANAGER)`;
   injected by type, it gets the application's default cache manager. When the application defines
   none, Issue Tracker registers an in-memory fallback.
-- **Schemas created by Hibernate** from 2.0.3 or earlier have unique constraints that, for example,
-  keep a project from having a second version. `ddl-auto=update` does not drop them. Dropping them
-  is optional: without it the application behaves as in 2.0.3. The README section **Upgrading to
-  2.1** lists the constraints and the statements to drop them.
 - Users nested in issue and time entry lists, and those returned by `UserService.findVisibleUsers`,
   carry only the fields needed to display them.
 - Within an HTTP request, the logged-in user, the permission contexts and the built-in roles are
@@ -193,8 +207,10 @@ images returned by tools, with fixes to the embedded chat, drafts and the messag
 
 ### Dates
 
-- **Message dates are sent to the model as UTC** (ISO 8601). Set the time zone of your business or
-  your users in the assistant prompt, as the README describes.
+- **Message dates are sent to the model as UTC** (ISO 8601). State the time zone of your business or
+  your users in the assistant prompt, for example: "Message dates are in UTC. Our customers are in
+  Argentina (America/Argentina/Buenos_Aires): convert those dates to that time zone to know the
+  customer's current date and time, and give every date and time in it."
 
 ### Fixes
 
@@ -216,13 +232,69 @@ images returned by tools, with fixes to the embedded chat, drafts and the messag
 
 ### Upgrading
 
-- **Attachment content is now stored as text.** On PostgreSQL, run the script under **Upgrading from
-  2.2.1 or earlier** in the README once, with the application stopped and before starting 2.3.0,
-  also when you use `ddl-auto=update`, and back up the database first. Without the script, the
-  schema update converts the column without its content.
-- Attachments gain the column `internal` of `as_message_attachment`. `ddl-auto=update` adds it; a
-  database whose schema is managed otherwise needs it before the application starts:
-  `ALTER TABLE as_message_attachment ADD COLUMN internal boolean NOT NULL DEFAULT false;`
+**Attachment content is now stored as text.** On PostgreSQL, earlier versions stored it in large
+objects. Run the script below once, with the application stopped and before starting 2.3.0, also
+when you use `ddl-auto=update`: Hibernate's schema update changes the column type without reading
+the large objects, which leaves every attachment without its content. Back up the database first:
+once freed, the large objects can only be recovered from a backup.
+
+Save the script as `migration.sql` and run it with `psql`, as the application's database user, with
+autocommit and not inside a transaction, since its second step commits as it goes:
+
+```sh
+psql -X -U <user> -d <database> -v ON_ERROR_STOP=1 -f migration.sql
+```
+
+Stopped at any point, it resumes when run again, and once done, running it again changes nothing. Do
+not drop a leftover `as_message_attachment_lo_cleanup` table by hand: it lists the large objects
+still to free.
+
+```sql
+-- 1. Convert the column and list its large objects, in one transaction
+BEGIN;
+LOCK TABLE as_message_attachment IN ACCESS EXCLUSIVE MODE;
+DO $$
+BEGIN
+  IF (SELECT atttypid FROM pg_attribute
+      WHERE attrelid = 'as_message_attachment'::regclass AND attname = 'text_content')
+      IS DISTINCT FROM 'oid'::regtype THEN
+    RETURN;
+  END IF;
+  CREATE TABLE as_message_attachment_lo_cleanup AS
+    SELECT DISTINCT text_content AS lo FROM as_message_attachment WHERE text_content IS NOT NULL;
+  ALTER TABLE as_message_attachment
+    ALTER COLUMN text_content TYPE text USING convert_from(lo_get(text_content), 'UTF8');
+END $$;
+COMMIT;
+
+-- 2. Free them 1000 per transaction: each lo_unlink holds a lock until its transaction ends
+DO $$
+DECLARE
+  freed int;
+BEGIN
+  IF to_regclass('as_message_attachment_lo_cleanup') IS NULL THEN
+    RETURN;
+  END IF;
+  LOOP
+    WITH batch AS (
+      DELETE FROM as_message_attachment_lo_cleanup
+      WHERE lo IN (SELECT lo FROM as_message_attachment_lo_cleanup LIMIT 1000)
+      RETURNING lo)
+    SELECT count(lo_unlink(lo)) INTO freed FROM batch;
+    COMMIT;
+    EXIT WHEN freed = 0;
+  END LOOP;
+  DROP TABLE as_message_attachment_lo_cleanup;
+END $$;
+```
+
+Whether an attachment is internal is stored in the new column `internal` of `as_message_attachment`.
+`ddl-auto=update` adds it; a database whose schema is managed otherwise needs it added once, before
+the application starts, or no attachment can be read:
+
+```sql
+ALTER TABLE as_message_attachment ADD COLUMN internal boolean NOT NULL DEFAULT false;
+```
 
 ### API changes
 
