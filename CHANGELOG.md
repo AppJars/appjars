@@ -13,6 +13,23 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## User Manager 2.0.3 — 2026-11-19
+
+A patch release with a fix to the **Views** view.
+
+### Fixes
+
+- The **View name** filter now ignores case, as the **View URL** filter already did, so typing
+  `users` finds a view named `UsersView`.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/user-manager-2.0.3) ·
+[Getting started](https://docs.appjars.com/user-manager/getting-started/) ·
+[Documentation](https://docs.appjars.com/user-manager/overview/) ·
+[Pricing](https://www.appjars.com/catalog/user-manager/)
+
 ## Issue Tracker 2.1.0 — 2026-11-19
 
 A minor release, with faster lists, fetch plans in the service API, a warning when email is not
