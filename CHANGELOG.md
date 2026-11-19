@@ -13,6 +13,86 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## AI Support 2.3.0 — 2026-11-19
+
+A minor release, adding the OpenAI Responses API, reasoning effort and image detail per LLM, and
+images returned by tools, with fixes to the embedded chat, drafts and the messaging channels.
+
+### OpenAI models
+
+- **Each OpenAI LLM chooses its API**: Chat Completions, the default and what existing LLMs keep, or
+  Responses, which tools need with OpenAI's reasoning models. On Responses, attachments are limited
+  to text, images and PDFs, and nothing is stored at OpenAI.
+- **Reasoning effort** can be set per OpenAI LLM and is sent to the model as typed. Left empty, the
+  model's default applies.
+- **Image detail** can be set per OpenAI LLM: `low` (the default), `high` or `auto`. A higher level
+  lets the model read small text in screenshots, at more tokens per image
+  ([#25](https://github.com/AppJars/appjars/issues/25)).
+
+### Tools
+
+- **Tools can return images** (`Image`, `ImageContent` or a list of contents). Each image is stored
+  once as an internal attachment, the chat memory holds a reference to it, and only the model
+  receives it. A model that cannot read images in tool results (OpenAI on Chat Completions, and
+  Ollama) gets a note naming each image instead.
+- Images returned by tools are deleted when their session is closed, or with their turn when the
+  model rejects it.
+- **LangChain4j 1.23.0** is now used. Compile your `@Tool` beans against `langchain4j-core` 1.23.0
+  if your build does not already get it through `appjars-ai-support-business-impl`.
+
+### Dates
+
+- **Message dates are sent to the model as UTC** (ISO 8601). Set the time zone of your business or
+  your users in the assistant prompt, as the README describes.
+
+### Fixes
+
+- The **embedded chat** supports file uploads and voice notes, recording and playback, when it is
+  hosted on a different origin than the page.
+- The voice buttons of the embedded chat keep the Lumo theme, and a voice note can be played again
+  as soon as it ends.
+- A message is **sent once**, however often Send or Enter is pressed.
+- The **session filter** includes the whole end day.
+- **Deleting or closing a conversation** with unsent text discards its draft, and the chat moves on
+  to a new conversation ([#22](https://github.com/AppJars/appjars/issues/22)).
+- A disabled system LLM transcribes nothing, and the application says so at startup.
+- The **LLM Inspector** handles answers with many context items, and keeps the questions of an
+  answer in the same order on every page.
+- **WhatsApp** messages from contacts without a profile name, or whose phone number is hidden, are
+  read and answered ([#21](https://github.com/AppJars/appjars/issues/21)).
+- **Messenger and Instagram** payloads of every shape are read, and content the chat cannot display
+  leaves a notice in the session for administrators.
+
+### Upgrading
+
+- **Attachment content is now stored as text.** On PostgreSQL, run the script under **Upgrading from
+  2.2.1 or earlier** in the README once, with the application stopped and before starting 2.3.0,
+  also when you use `ddl-auto=update`, and back up the database first. Without the script, the
+  schema update converts the column without its content.
+- Attachments gain the column `internal` of `as_message_attachment`. `ddl-auto=update` adds it; a
+  database whose schema is managed otherwise needs it before the application starts:
+  `ALTER TABLE as_message_attachment ADD COLUMN internal boolean NOT NULL DEFAULT false;`
+
+### API changes
+
+- `MessageAttachmentService` and `MessageAttachmentDao` gain `deleteInternalBySession(Long)` and
+  `deleteInternalByMessage(Long)`. Applications that implement either interface themselves must
+  implement them.
+- Searches through `MessageAttachmentFilter` never return internal attachments.
+- `LlmConfiguration` gains `api`, `reasoningEffort` and `imageDetail`, backed by the new enums
+  `OpenAiApi` and `ImageDetail`, and `LlmType` gains `getSupportedContentTypes(OpenAiApi)` and
+  `takesToolResultImages(OpenAiApi)`.
+- `MessageAttachmentDto` gains `internal`. The previous all-arguments constructor is deprecated for
+  removal.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.1.0.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/ai-support-2.3.0) ·
+[Getting started](https://docs.appjars.com/ai-support/getting-started/) ·
+[Documentation](https://docs.appjars.com/ai-support/overview/) ·
+[Pricing](https://www.appjars.com/catalog/ai-support/)
+
 ## Activity Log 2.1.1 — 2026-11-19
 
 A patch release that tidies how the UI module is auto-configured.
