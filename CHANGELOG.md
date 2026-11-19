@@ -424,8 +424,8 @@ A patch release, with access control fixes, saved query fixes and a report by ve
 
 ### Documentation
 
-- The README now documents the configurable properties and describes the user sync events Issue
-  Tracker consumes.
+- The [developer guide](https://docs.appjars.com/issue-tracker/developer-guide/) now documents the
+  configurable properties and describes the user sync events Issue Tracker consumes.
 
 **Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
 The backend and service layers of an AppJar do not require Vaadin.
@@ -533,8 +533,9 @@ hears and transcribes voice notes.
 - Visitor sessions are purged after a while, with bounds on how many messages a visitor sends and on
   the length of messages and context.
 - Setup: serve it from a host on the site's own domain, let `/web-component/**` through the security
-  configuration, and have Vaadin scan `com.appjars.aisupport.flow.embed`. The README has the full
-  procedure.
+  configuration, and have Vaadin scan `com.appjars.aisupport.flow.embed`.
+  [Setting up the Embedded Chat](https://docs.appjars.com/ai-support/administrator-features/configure-embedded-chat/)
+  has the full procedure.
 
 ### Models and providers
 
