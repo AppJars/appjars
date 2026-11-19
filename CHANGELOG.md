@@ -13,6 +13,81 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Issue Tracker 2.1.0 — 2026-11-19
+
+A minor release, with faster lists, fetch plans in the service API, a warning when email is not
+configured, and better coexistence with the host application's logging and caching.
+
+### Lists and performance
+
+- The **issue, time entry and project lists** load significantly faster, with fewer and lighter
+  database queries.
+- **Totals** are computed only for the columns the user selects, and the selection is kept when the
+  filters change. Totals always reflect the current custom field configuration.
+
+### Projects and filters
+
+- Changing a **project's parent** moves its whole subtree and keeps the hierarchy consistent. Moving
+  a project under itself or one of its subprojects is rejected, and the parent picker no longer
+  offers the project's own subprojects.
+- **History filters** (status, tracker, priority and version, including "has never been") return
+  accurate results.
+- Deleting an issue that no longer exists reports it by number.
+
+### Email
+
+- The application **starts without a mail sender**. When `spring.mail.host` is not set,
+  notifications are disabled, the startup log says so, and the **Email notifications** settings tab
+  shows a warning.
+
+### Upgrading
+
+- **Logging is left to your application.** Issue Tracker no longer brings in the Log4j 2 starter, so
+  it runs with Spring Boot's default Logback setup. If your application logs with Log4j 2, declare
+  `spring-boot-starter-log4j2` and exclude `spring-boot-starter-logging` in your own build.
+- **The Issue Tracker cache manager is no longer the application's default `CacheManager`**, so it
+  coexists with the host application's own and with other AppJars. Code that evicts Issue Tracker
+  caches must inject it by name, with `@Qualifier(IssueTrackerCacheConfiguration.CACHE_MANAGER)`;
+  injected by type, it gets the application's default cache manager. When the application defines
+  none, Issue Tracker registers an in-memory fallback.
+- **Schemas created by Hibernate** from 2.0.3 or earlier have unique constraints that, for example,
+  keep a project from having a second version. `ddl-auto=update` does not drop them. Dropping them
+  is optional: without it the application behaves as in 2.0.3. The README section **Upgrading to
+  2.1** lists the constraints and the statements to drop them.
+- Users nested in issue and time entry lists, and those returned by `UserService.findVisibleUsers`,
+  carry only the fields needed to display them.
+- Within an HTTP request, the logged-in user, the permission contexts and the built-in roles are
+  resolved once. The permission contexts are shared by every caller in the request: treat them as
+  read-only.
+
+### API changes
+
+- **Fetch plans.** Service and DAO methods that take a `FetchPlan` return DTOs that carry only the
+  associations of the plan, and reading any other association throws
+  `AssociationNotLoadedException`. Methods without a plan keep the 2.0 behaviour; the JVM system
+  property `appjars.issuetracker.fetch-plan.strict=true` makes them fail fast as well.
+  `CustomFieldDto.getProjects()` and `EnabledModuleDto.getProject()` are now references: load the
+  project through `ProjectService`.
+- `IssueService`, `ProjectService`, `TimeEntryService`, `PermissionService`, `NotificationService`
+  and `ProjectDao` gain methods. Applications that implement any of these interfaces themselves must
+  implement them. `ProjectDao` also gains the default method `moveSubtree`.
+- `SettingsView` and `EmailNotificationSettingsView` gain constructors that take a
+  `NotificationService`. The previous constructors are deprecated and show no email warning.
+- Deprecated, with replacements: `ProjectExtras` and `ProjectDao.findById(Integer, ProjectExtras)`
+  (use `findById(Integer, FetchPlan)`), `ProjectService.findRecursiveChildren(Integer)` (use the
+  overload with a `FetchPlan`), the all-arguments constructors of `ProjectDto`, `QueryDto`,
+  `UserDto`, `VersionDto` and `CustomFieldDto` (use the builders), and
+  `IssueTrackerAutoConfiguration.issueTrackerCacheManager()` (use the `issueTrackerCacheManager`
+  bean).
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/issue-tracker-2.1.0) ·
+[Getting started](https://docs.appjars.com/issue-tracker/getting-started/) ·
+[Documentation](https://docs.appjars.com/issue-tracker/overview/) ·
+[Pricing](https://www.appjars.com/catalog/issue-tracker/)
+
 ## Dynamic Menu 2.1.1 — 2026-11-19
 
 A patch release that aligns Dynamic Menu with the other AppJars on appjars-utils 2.0.3.
