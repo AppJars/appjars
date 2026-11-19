@@ -13,6 +13,30 @@ holds some capabilities back for a licensed installation. Installing a license l
 with no code changes. What free mode allows for each AppJar is listed in the
 [licensing documentation](https://docs.appjars.com/licensing/#free-mode-limits).
 
+## Data Query 1.0.2 — 2026-11-19
+
+A patch release that aligns Data Query's dependencies with the other AppJars.
+
+### Upgrading
+
+- **Logging is left to your application.** Data Query logs through SLF4J only and no longer brings
+  in the Log4j 2 starter, so it runs with Spring Boot's default Logback setup and needs no
+  exclusions. If your application logs with Log4j 2, declare `spring-boot-starter-log4j2` in your
+  own build.
+
+### Fixes
+
+- **appjars-utils 2.0.3** is now the minimum version, the one the other AppJars already require, so
+  an application that combines them resolves a single version.
+
+**Requires** Java 21, Spring Boot 4.x, and Vaadin 25.2 for the UI layer, and appjars-utils 2.0.3.
+The backend and service layers of an AppJar do not require Vaadin.
+
+[Release](https://github.com/AppJars/appjars/releases/tag/data-query-1.0.2) ·
+[Getting started](https://docs.appjars.com/data-query/getting-started/) ·
+[Documentation](https://docs.appjars.com/data-query/overview/) ·
+[Pricing](https://www.appjars.com/catalog/data-query/)
+
 ## AI Support 2.3.0 — 2026-11-19
 
 A minor release, adding the OpenAI Responses API, reasoning effort and image detail per LLM, and
